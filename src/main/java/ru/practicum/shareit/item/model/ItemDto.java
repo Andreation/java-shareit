@@ -6,18 +6,17 @@ import ru.practicum.shareit.user.model.User;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Builder
 @Getter
 @Setter
 @AllArgsConstructor
-public class Item {
+@Builder
+public class ItemDto {
     private long id;
     @NotBlank
     private String name;
     private String description;
     @NotNull
     private Boolean available;
-    @NotNull
     private User owner;
     private Long request;
 }
