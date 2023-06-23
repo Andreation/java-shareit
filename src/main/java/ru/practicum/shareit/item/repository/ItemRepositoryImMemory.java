@@ -73,8 +73,8 @@ public class ItemRepositoryImMemory implements ItemRepository {
         return string.isBlank() ? new ArrayList<>() :
                 items.values().stream()
                         .filter(u -> u.getAvailable() &&
-                                u.getName().toLowerCase().contains(string.toLowerCase()) ||
-                                u.getDescription().toLowerCase().contains(string.toLowerCase()))
+                                (u.getName().toLowerCase().contains(string.toLowerCase()) ||
+                                u.getDescription().toLowerCase().contains(string.toLowerCase())))
                         .collect(Collectors.toList());
     }
 
