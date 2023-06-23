@@ -63,7 +63,6 @@ public class ItemRepositoryImMemory implements ItemRepository {
             item.setAvailable(Boolean.valueOf(updates.get("available")));
             log.info("available updated");
         }
-        items.put(itemId, item);
         log.info("update successful {}", itemId);
         return item;
     }
