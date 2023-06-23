@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Qualifier("itemRepository")
 public class ItemRepositoryImMemory implements ItemRepository {
     private final Map<Long, Item> items = new HashMap<>();
-    private long idItem = 0L;
+    private long idItem = 1L;
 
     @Override
     public Item get(long id) {
@@ -40,7 +40,7 @@ public class ItemRepositoryImMemory implements ItemRepository {
     public Item create(Item item) {
         log.trace("create item");
         item.setId(idItem++);
-        items.put(idItem, item);
+        items.put(item.getId(), item);
         return item;
     }
 
