@@ -13,6 +13,7 @@ public class User {
     private long id;
     @NotBlank
     private String name;
+    @NotBlank
     @Email(message = "incorect email")
     private String email;
 }

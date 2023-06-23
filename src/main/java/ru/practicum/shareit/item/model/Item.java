@@ -14,6 +14,7 @@ public class Item {
     private long id;
     @NotBlank
     private String name;
+    @NotBlank
     private String description;
     @NotNull
     private Boolean available;
