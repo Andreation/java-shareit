@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Qualifier("itemRepository")
 public class ItemRepositoryImMemory implements ItemRepository {
     private final Map<Long, Item> items = new HashMap<>();
-    private long idItem = 1L;
+    private long idItem = 0L;
 
     @Override
     public Item get(long id) {
@@ -73,7 +73,8 @@ public class ItemRepositoryImMemory implements ItemRepository {
         return string.isBlank() ? new ArrayList<>() :
                 items.values().stream()
                         .filter(u -> u.getAvailable() &&
-                                u.getName().toLowerCase().contains(string))
+                                u.getName().toLowerCase().contains(string.toLowerCase()) ||
+                                u.getDescription().toLowerCase().contains(string.toLowerCase()))
                         .collect(Collectors.toList());
     }
 
