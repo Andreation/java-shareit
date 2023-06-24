@@ -71,13 +71,7 @@ public class UserRepositoryInMemory implements UserRepository {
         log.info("Users deleted");
     }
 
-    private boolean isValidId(long id) {
-        if (id <= 0) {
-            throw new ValidationException("id not correct");
-        } else return !users.containsKey(id);
-    }
-
-    private boolean isValidEmail(Long id, String email) {
+    private boolean isValidEmail(Long id, String email) { //проверка занятости email
         if (!(getAll().stream()
                 .filter(u -> u.getId() != id)
                 .filter(u -> email.equals(u.getEmail())).count() == 0)) {
