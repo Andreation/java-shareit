@@ -7,11 +7,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Builder
 @Getter
 @Setter
 @AllArgsConstructor
-public class Item {
+@Builder
+public class ItemDto {
     private long id;
     @NotBlank
     @Size(max = 50)
@@ -21,7 +21,6 @@ public class Item {
     private String description;
     @NotNull
     private Boolean available;
-    @NotNull
     private User owner;
     private Long request;
 }
