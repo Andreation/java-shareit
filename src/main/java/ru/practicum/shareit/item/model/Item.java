@@ -20,7 +20,7 @@ public class Item {
     private String name;
     @Column(nullable = false)
     private String description;
-    @Column(name = "is_available", nullable = false)
+    @Column(name = "available", nullable = false)
     private Boolean available;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @ToString.Exclude
