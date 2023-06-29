@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class ItemServiceImpl implements ItemService {
+public class ItemServiceDb implements ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
@@ -102,12 +102,12 @@ public class ItemServiceImpl implements ItemService {
                 .map(Item::getId)
                 .collect(Collectors.toList()));
         comments.sort(Comparator.comparing(Comment::getCreated));
-        List<ItemDto> ListItemDto = ItemMapper.toItemDtoList(items);
-        ListItemDto.forEach(i -> {
+        List<ItemDto> listItemDto = ItemMapper.toItemDtoList(items);
+        listItemDto.forEach(i -> {
             setBookings(i, bookings);
             setComments(i, comments);
         });
-        return ListItemDto;
+        return listItemDto;
     }
 
     @Transactional

@@ -73,7 +73,6 @@ public class BookingServiceImpl implements BookingService {
         checkBooking(booking, userId, true);
         return booking;
     }
-    
 
     @Override
     public OutputBookingDto getBookingDto(Long bookingId, Long userId) {
