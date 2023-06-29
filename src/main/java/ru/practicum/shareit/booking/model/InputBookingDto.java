@@ -1,22 +1,26 @@
 package ru.practicum.shareit.booking.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class InputBookingDto {
     @NotNull
     private Long itemId;
-    @NotNull(message = "Date must be filled!")
-    @FutureOrPresent(message = "Start must be current or future!")
+    @NotNull(message = "start = null")
+    @FutureOrPresent(message = "start mustnt be future")
     private LocalDateTime start;
-    @NotNull(message = "Date must be filled!")
-    @Future(message = "End must be future!")
+    @NotNull(message = "end = null")
+    @Future(message = "end mustnt be past")
     private LocalDateTime end;
 }

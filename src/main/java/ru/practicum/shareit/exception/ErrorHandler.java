@@ -35,10 +35,10 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleThrowable(final Throwable e) {
+    @ResponseStatus (HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleExceptionForUnsupport(final ExceptionForUnsupport e) {
         String strError = e.getMessage();
-        log.info(strError);
+        log.error(strError);
         return new ErrorResponse(strError);
     }
 }

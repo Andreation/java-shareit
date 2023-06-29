@@ -13,12 +13,12 @@ public class ItemMapper {
                 .build();
     }
 
-    public static Item fromItem(ItemDto itemDto) {
+    public static Item toItem(ItemDto item) {
         return Item.builder()
-                .id(itemDto.getId())
-                .name(itemDto.getName())
-                .description(itemDto.getDescription())
-                .available(itemDto.getAvailable())
+                .id(item.getId())
+                .name(item.getName())
+                .description(item.getDescription())
+                .available(item.getAvailable())
                 .build();
     }
 

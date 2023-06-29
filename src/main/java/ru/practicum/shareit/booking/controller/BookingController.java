@@ -1,10 +1,10 @@
-package ru.practicum.shareit.booking.controlers;
+package ru.practicum.shareit.booking.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.model.InputBookingDto;
 import ru.practicum.shareit.booking.model.OutputBookingDto;
-import ru.practicum.shareit.booking.model.Status;
+import ru.practicum.shareit.booking.model.State;
 import ru.practicum.shareit.booking.service.BookingService;
 
 import javax.validation.Valid;
@@ -18,20 +18,20 @@ public class BookingController {
     private final BookingService bookingService;
 
     @GetMapping("/{bookingId}")
-    public OutputBookingDto getBooking(@RequestHeader(USER_ID_IN_HEADER) Long userId, @PathVariable Long bookingId) {
+    public OutputBookingDto getBookingDto(@RequestHeader(USER_ID_IN_HEADER) Long userId, @PathVariable Long bookingId) {
         return bookingService.getBookingDto(bookingId, userId);
     }
 
     @GetMapping
     public List<OutputBookingDto> getBookingUser(@RequestHeader(USER_ID_IN_HEADER) Long userId,
                                                  @RequestParam(defaultValue = "ALL") String state) {
-        return bookingService.getBookingUser(Status.getSearchStatus(state), userId);
+        return bookingService.getBookingBooker(State.getState(state), userId);
     }
 
     @GetMapping("/owner")
     public List<OutputBookingDto> getBookingOwner(@RequestHeader(USER_ID_IN_HEADER) Long userId,
                                                   @RequestParam(defaultValue = "ALL") String state) {
-        return bookingService.getBookingOwner(Status.getSearchStatus(state), userId);
+        return bookingService.getBookingOwner(State.getState(state), userId);
     }
 
     @PostMapping
@@ -44,7 +44,7 @@ public class BookingController {
     public OutputBookingDto update(@RequestHeader(USER_ID_IN_HEADER) Long userId,
                                    @PathVariable Long bookingId,
                                    @RequestParam boolean approved) {
-        return bookingService.approveBooking(bookingId, userId, approved);
+        return bookingService.updateBooking(bookingId, userId, approved);
     }
 
 }

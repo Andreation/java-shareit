@@ -6,16 +6,15 @@ import ru.practicum.shareit.user.model.User;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 @Builder
-@Setter
-@Getter
 @AllArgsConstructor
-
+@RequiredArgsConstructor
 @Table(name = "comments")
 public class Comment {
     @Id
-    @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "text", nullable = false)
