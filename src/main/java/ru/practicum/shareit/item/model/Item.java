@@ -23,6 +23,6 @@ public class Item {
     @Column(name = "available", nullable = false)
     private Boolean available;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "owner_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User owner;
 }
