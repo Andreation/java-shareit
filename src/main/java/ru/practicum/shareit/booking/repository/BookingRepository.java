@@ -36,7 +36,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "LIMIT 1", nativeQuery = true)
     Booking getLastBooking(@Param("idItem") Long idItem);
 
-    @Query (value = "SELECT i FROM booking i " +
+    @Query (value = "SELECT i FROM Booking i " +
             "WHERE i.item_id  = :idItem " +
             "AND i.start_date > :time " +
             "ORDER BY i.start_date ASC " +
