@@ -11,7 +11,9 @@ public interface UserService {
 
     UserDto update(long id, Map<String, String> userDto);
 
-    UserDto getUser(long id);
+    User getUser(long id);
+
+    UserDto getUserDto(long id);
 
     List<UserDto> getAll();
 

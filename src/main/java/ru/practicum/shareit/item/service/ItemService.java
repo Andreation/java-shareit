@@ -11,7 +11,7 @@ public interface ItemService {
 
     ItemDto update(long ownerId, long itemId, Map<String, String> updates);
 
-    ItemDto get(long id);
+    ItemDto getItemDto(long itemId);
 
     List<ItemDto> getAllItemsUser(long userId);
 
@@ -19,4 +19,5 @@ public interface ItemService {
 
     void delete(long itemId);
 
+    Item getItem(Long itemId);
 }

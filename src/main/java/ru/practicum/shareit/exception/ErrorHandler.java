@@ -25,10 +25,20 @@ public class ErrorHandler {
         return new ErrorResponse(errorMessage);
     }
 
+
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNotFoundException(final NotFoundException e) {
         String errorMessage = "NotFoundException: " + e.getMessage();
         return new ErrorResponse(errorMessage);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleThrowable(final Throwable e) {
+        String strError = e.getMessage();
+        log.info(strError);
+        return new ErrorResponse(strError);
     }
 }
