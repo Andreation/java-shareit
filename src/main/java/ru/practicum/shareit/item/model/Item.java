@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import ru.practicum.shareit.user.model.User;
 
@@ -25,5 +26,6 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @ToString.Exclude
     @JoinColumn(name = "owner_id")
+    @JsonIgnore
     private User owner;
 }
