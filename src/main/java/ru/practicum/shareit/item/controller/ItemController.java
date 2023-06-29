@@ -22,7 +22,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping
-    public ItemDto create(@RequestHeader(line) long ownerId, @Valid @RequestBody @NotNull ItemDto itemDto) {
+    public ItemDto create(@RequestHeader(line) long ownerId, @Valid @RequestBody ItemDto itemDto) {
         return itemService.add(ownerId, ItemMapper.toItem(itemDto));
     }
 

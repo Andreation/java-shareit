@@ -32,7 +32,6 @@ public class ItemServiceDb implements ItemService {
     private final BookingRepository bookingRepository;
     private final CommentRepository commentRepository;
 
-    @Transactional
     @Override
     public ItemDto add(Long ownerId, Item item) {
         User owner = userRepository.findById(ownerId)
