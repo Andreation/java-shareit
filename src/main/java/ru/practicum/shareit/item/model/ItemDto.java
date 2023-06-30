@@ -1,18 +1,22 @@
 package ru.practicum.shareit.item.model;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import ru.practicum.shareit.booking.model.BookingDto;
 import ru.practicum.shareit.user.model.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @Builder
 public class ItemDto {
-    private long id;
+    private Long id;
     @NotBlank
     @Size(max = 50)
     private String name;
@@ -21,6 +25,9 @@ public class ItemDto {
     private String description;
     @NotNull
     private Boolean available;
+    @JsonIgnore
     private User owner;
-    private Long request;
+    private BookingDto lastBooking;
+    private BookingDto nextBooking;
+    private List<CommentDto> comments;
 }

@@ -1,6 +1,9 @@
 package ru.practicum.shareit.user.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +20,6 @@ public class UserDto {
     private String name;
     @NotBlank
     @Email(message = "incorect email")
-    @Size(max = 256)
+    @Size(max = 100)
     private String email;
 }
