@@ -20,13 +20,11 @@ public class Comment {
     private Long id;
     @Column(name = "text", nullable = false)
     private String text;
-    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
-    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User author;
     @Column
     private LocalDateTime created = LocalDateTime.now();
