@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.model.*;
 import ru.practicum.shareit.booking.repository.BookingRepository;
+import ru.practicum.shareit.exception.ForbiddenException;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.model.Item;
@@ -37,7 +38,7 @@ public class BookingServiceImpl implements BookingService {
             throw new ValidationException("time isnt correct");
         }
         if (item.getOwner().getId().equals(user.getId())) {
-            throw new NotFoundException("booker musnt be owner");
+            throw new ForbiddenException("booker musnt be owner");
         }
         if (item.getAvailable()) {
             Booking booking = Booking.builder()
