@@ -23,13 +23,11 @@ public class Booking {
     private LocalDateTime start;
     @Column(name = "booking_end")
     private LocalDateTime end;
-    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "item_id", nullable = false)
     private Item item;
-    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "booker_id")
+    @JoinColumn(name = "booker_id", nullable = false)
     private User booker;
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
