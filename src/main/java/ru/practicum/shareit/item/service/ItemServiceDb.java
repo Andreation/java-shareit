@@ -2,8 +2,10 @@ package ru.practicum.shareit.item.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.shareit.Pagination;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingMapper;
 import ru.practicum.shareit.booking.model.BookingStatus;
@@ -13,6 +15,8 @@ import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.model.*;
 import ru.practicum.shareit.item.repository.CommentRepository;
 import ru.practicum.shareit.item.repository.ItemRepository;
+import ru.practicum.shareit.request.model.ItemRequest;
+import ru.practicum.shareit.request.service.ItemRequestServiceInDb;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
@@ -29,15 +33,21 @@ import java.util.stream.Collectors;
 public class ItemServiceDb implements ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
+    private final ItemRequestServiceInDb itemRequestService;
     private final BookingRepository bookingRepository;
     private final CommentRepository commentRepository;
 
     @Override
-    public ItemDto add(Long ownerId, Item item) {
+    public ItemDtoRequest add(Long ownerId, ItemDtoRequest itemDto) {
         User owner = userRepository.findById(ownerId)
                 .orElseThrow(() -> new NotFoundException("user nor found"));
+        Item item = ItemMapper.toItem(itemDto);
         item.setOwner(owner);
-        return ItemMapper.toItemDto(itemRepository.save(item));
+        if (itemDto.getRequestId() != null) {
+            ItemRequest itemRequest = itemRequestService.getItemRequest(ownerId, itemDto.getRequestId());
+            item.setRequest(itemRequest);
+        }
+        return ItemMapper.toItemDtoRequest(itemRepository.save(item));
     }
 
     @Transactional
@@ -86,7 +96,7 @@ public class ItemServiceDb implements ItemService {
         comments.sort(Comparator.comparing(Comment::getCreated));
         ItemDto itemDto = ItemMapper.toItemDto(item);
         if (item.getOwner() != null && item.getOwner().getId().equals(userId)) {
-            setBookings(itemDto, bookingRepository.findAllByItemIdAndStatus(itemId, BookingStatus.APPROVED));
+            setBookings(itemDto, bookingRepository.findAllByItemIdAndStatus(itemId, BookingStatus.APPROVED, null));
         }
         setComments(itemDto, comments);
         return itemDto;
@@ -94,9 +104,10 @@ public class ItemServiceDb implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<ItemDto> getAllUserItems(Long userId) {
+    public List<ItemDto> getAllUserItems(Long userId, Long from, Long size) {
         List<Item> items = itemRepository.findAllByOwnerId(userId);
-        List<Booking> bookings = bookingRepository.findAllByOwnerIdAndStatus(userId, BookingStatus.APPROVED);
+        Pageable pageable = Pagination.setPageable(from,size);
+        List<Booking> bookings = bookingRepository.findAllByOwnerIdAndStatus(userId, BookingStatus.APPROVED, pageable);
         List<Comment> comments = commentRepository.findAllByItemIdIn(items.stream()
                 .map(Item::getId)
                 .collect(Collectors.toList()));
@@ -120,11 +131,12 @@ public class ItemServiceDb implements ItemService {
     }
 
     @Override
-    public List<ItemDto> searchItems(Long userId, String query) {
+    public List<ItemDto> searchItems(Long userId, String query, Long from, Long size) {
+        Pageable pageable = Pagination.setPageable(from,size);
         if (query == null || query.isBlank()) {
             return Collections.emptyList();
         }
-        return ItemMapper.toItemDtoList(itemRepository.searchAvailableItems(query));
+        return ItemMapper.toItemDtoList(itemRepository.searchAvailableItems(query, pageable));
     }
 
     @Transactional

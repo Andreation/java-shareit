@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findUsersByNameEqualsIgnoreCase(String name);
 
+    List<User> findByIdNot(Long userId);
+
 }
