@@ -8,7 +8,6 @@ import javax.validation.ValidationException;
 
 @UtilityClass
 public class Pagination {
-
     public static Pageable setPageable(Long from, Long size) {
         if (from == null || size == null) {
             return Pageable.unpaged();
