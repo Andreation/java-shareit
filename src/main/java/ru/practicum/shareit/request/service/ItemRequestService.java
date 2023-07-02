@@ -8,7 +8,10 @@ import java.util.List;
 public interface ItemRequestService {
 
     ItemRequest create(Long userId, ItemRequestDto itemRequestDto);
+
     List<ItemRequest> getOwnItemRequest(Long userId);
+
     List<ItemRequest> getAllItemRequest(Long userId, Long from, Long size);
+
     ItemRequest getItemRequest(Long userId, Long itemRequestId);
 }
