@@ -33,21 +33,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     Optional<Booking> findFirstByItemIdAndBookerIdAndStatusAndEndBefore(long itemId, long bookerId,
                                                                         BookingStatus status, LocalDateTime end);
 
-    @Query (value = "SELECT i FROM Booking i" +
-            "WHERE i.item_id  = :idItem " +
-            "AND i.start_date < now() " +
-            "ORDER BY i.end_date DESC " +
-            "LIMIT 1", nativeQuery = true)
-    Booking getLastBooking(@Param("idItem") Long idItem);
-
-    @Query (value = "SELECT i FROM Booking i " +
-            "WHERE i.item_id  = :idItem " +
-            "AND i.start_date > :time " +
-            "ORDER BY i.start_date ASC " +
-            "LIMIT 1", nativeQuery = true)
-    Booking getNextBooking(@Param("idItem") Long idItem,
-                           @Param("time") LocalDateTime time);
-
     @Query(value = "SELECT i FROM Booking i " +
             "WHERE i.booker.id = :bookerId " +
             "AND i.start < :dateTime " +

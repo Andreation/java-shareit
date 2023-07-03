@@ -16,9 +16,9 @@ import ru.practicum.shareit.item.model.*;
 import ru.practicum.shareit.item.repository.CommentRepository;
 import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.request.model.ItemRequest;
-import ru.practicum.shareit.request.service.ItemRequestServiceInDb;
+import ru.practicum.shareit.request.service.ItemRequestService;
 import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.user.repository.UserRepository;
+import ru.practicum.shareit.user.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -32,15 +32,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ItemServiceDb implements ItemService {
     private final ItemRepository itemRepository;
-    private final UserRepository userRepository;
-    private final ItemRequestServiceInDb itemRequestService;
+    private final UserService userService;
+    private final ItemRequestService itemRequestService;
     private final BookingRepository bookingRepository;
     private final CommentRepository commentRepository;
 
     @Override
     public ItemDtoRequest add(Long ownerId, ItemDtoRequest itemDto) {
-        User owner = userRepository.findById(ownerId)
-                .orElseThrow(() -> new NotFoundException("user nor found"));
+        User owner = userService.getUser(ownerId);
         Item item = ItemMapper.toItem(itemDto);
         item.setOwner(owner);
         if (itemDto.getRequestId() != null) {
@@ -142,10 +141,8 @@ public class ItemServiceDb implements ItemService {
     @Transactional
     @Override
     public CommentDto addComment(Long userId, Long itemId, CommentDto commentDto) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("user not found."));
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new NotFoundException("item not found."));
+        User user = userService.getUser(userId);
+        Item item = getItemById(itemId);
         bookingRepository.findFirstByItemIdAndBookerIdAndStatusAndEndBefore(itemId, userId, BookingStatus.APPROVED,
                         LocalDateTime.now())
                 .orElseThrow(() -> new ValidationException("User not booking."));

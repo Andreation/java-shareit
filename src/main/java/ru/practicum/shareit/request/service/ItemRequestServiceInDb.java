@@ -43,6 +43,7 @@ public class ItemRequestServiceInDb implements ItemRequestService {
     }
 
     public List<ItemRequest> getAllItemRequest(Long userId, Long from, Long size) {
+        userService.getUser(userId);
         return itemRequestRepository.findALlByRequesterInOrderByCreatedAsc(userRepository.findByIdNot(userId),
                                                                                 Pagination.setPageable(from,size));
     }

@@ -17,6 +17,4 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             + " OR LOWER(i.description) LIKE LOWER(concat('%',?1,'%'))"
             + " AND i.available = TRUE")
     List<Item> searchAvailableItems(String text, Pageable pageable);
-
-    void deleteById(long itemId);
 }
