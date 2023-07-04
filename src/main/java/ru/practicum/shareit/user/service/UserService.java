@@ -19,7 +19,4 @@ public interface UserService {
 
     void delete(long userId);
 
-    void deleteAll();
-
-
 }

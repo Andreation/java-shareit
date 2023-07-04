@@ -33,12 +33,6 @@ class ErrorHandlerTest {
     }
 
     @Test
-    void validateArgumentException() {
-        ErrorResponse response = errorHandler.validateArgumentException(new ValidationException("ValidationException"));
-        assertEquals(response.getError(),"Validation error: ValidationException");
-    }
-
-    @Test
     void handleForbiddenException() {
         ErrorResponse response = errorHandler.handleForbiddenException(new ForbiddenException("ForbiddenException"));
         assertEquals(response.getError(),"ForbiddenException: ForbiddenException");

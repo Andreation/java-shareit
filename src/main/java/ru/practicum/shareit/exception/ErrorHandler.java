@@ -18,13 +18,6 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus (HttpStatus.BAD_REQUEST)
-    public ErrorResponse validateArgumentException(final ValidationException e) {
-        String errorMessage = "Validation error: " + e.getMessage();
-        return new ErrorResponse(errorMessage);
-    }
-
-    @ExceptionHandler
     @ResponseStatus (HttpStatus.FORBIDDEN)
     public ErrorResponse handleForbiddenException(final ForbiddenException e) {
         String errorMessage = "ForbiddenException: " + e.getMessage();

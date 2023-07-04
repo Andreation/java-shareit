@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
@@ -38,11 +39,11 @@ class CommentRepositoryTest {
         userRepository.save(user3);
 
         Item item1 = new Item(1L,"item1","itemDecription1",true);
-        item1.setOwner(userRepository.findById(1L).get());
+        item1.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item1);
 
         Item item2 = new Item(2L,"item2","itemDecription2",true);
-        item2.setOwner(userRepository.findById(1L).get());
+        item2.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item2);
 
         LocalDateTime date = LocalDateTime.now();
@@ -71,7 +72,7 @@ class CommentRepositoryTest {
         User user4 = new User(4L,"user4","user4@mail.ru");
         userRepository.save(user4);
         Item item1 = new Item(1L,"item1","itemDecription1",true);
-        item1.setOwner(userRepository.findById(1L).get());
+        item1.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item1);
 
         LocalDateTime date = LocalDateTime.now();

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.DirtiesContext;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingStatus;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.model.User;
@@ -36,11 +37,11 @@ class BookingRepositoryTest {
         userRepository.save(user2);
 
         Item item1 = new Item(1L,"item1","description",true);
-        item1.setOwner(userRepository.findById(1L).get());
+        item1.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item1);
 
         Item item2 = new Item(2L,"item2","description",true);
-        item2.setOwner(userRepository.findById(2L).get());
+        item2.setOwner(userRepository.findById(2L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item2);
 
         LocalDateTime date = LocalDateTime.now();
@@ -75,7 +76,7 @@ class BookingRepositoryTest {
         userRepository.save(user4);
 
         Item item1 = new Item(1L,"item1","description",true);
-        item1.setOwner(userRepository.findById(1L).get());
+        item1.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item1);
 
         LocalDateTime date = LocalDateTime.now();
@@ -106,7 +107,7 @@ class BookingRepositoryTest {
         userRepository.save(user2);
 
         Item item1 = new Item(1L, "item1", "description", true);
-        item1.setOwner(userRepository.findById(1L).get());
+        item1.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item1);
 
         LocalDateTime date = LocalDateTime.now();
@@ -156,7 +157,7 @@ class BookingRepositoryTest {
         userRepository.save(user4);
 
         Item item1 = new Item(1L,"item1","description",true);
-        item1.setOwner(userRepository.findById(1L).get());
+        item1.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item1);
 
         LocalDateTime date = LocalDateTime.now();
@@ -197,14 +198,14 @@ class BookingRepositoryTest {
         User user2 = userRepository.save(new User(2L,"user2","user2@user.ru"));
 
         Item item1 = new Item(1L,"item1","description",true);
-        item1.setOwner(userRepository.findById(1L).get());
+        item1.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
         itemRepository.save(item1);
 
         LocalDateTime date = LocalDateTime.now();
         Booking booking = bookingRepository.save(new Booking(item1,user2,
                 date.minusDays(2),date.plusDays(2), BookingStatus.WAITING));
 
-        Booking bookingF = bookingRepository.findById(1L).get();
+        Booking bookingF = bookingRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found"));
         assertEquals(bookingF.getStatus(),BookingStatus.WAITING);
         bookingRepository.updateStatus(BookingStatus.REJECTED, bookingF.getId());
     }
