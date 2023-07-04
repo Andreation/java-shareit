@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class UserMapperTest {
     private final EasyRandom generator = new EasyRandom();
 
-
     @Test
     void toUserDto() {
         User user = generator.nextObject(User.class);
