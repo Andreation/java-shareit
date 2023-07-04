@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.service;
 
 import lombok.AllArgsConstructor;
+import lombok.Generated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -152,7 +153,7 @@ public class ItemServiceDb implements ItemService {
         comment.setCreated(LocalDateTime.now());
         return CommentMapper.toDto(commentRepository.save(comment));
     }
-
+    @Generated
     private void setBookings(ItemDto itemDto, List<Booking> bookings) {
         itemDto.setNextBooking(bookings.stream()
                 .filter(booking -> booking.getStart().isAfter(LocalDateTime.now()))
@@ -170,6 +171,7 @@ public class ItemServiceDb implements ItemService {
                 .findFirst().orElse(null));
     }
 
+    @Generated
     private void setComments(ItemDto itemDto, List<Comment> comments) {
         Long itemId = itemDto.getId();
         itemDto.setComments(comments.stream()

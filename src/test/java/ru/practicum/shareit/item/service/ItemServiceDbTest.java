@@ -174,7 +174,6 @@ class ItemServiceDbTest {
         item.setOwner(user1);
 
         Page<Item> itemSearch = new PageImpl<>(List.of(item),Pageable.unpaged(),1L);
-
         when(bookingRepository.findAllByOwnerIdAndStatus(anyLong(), any(BookingStatus.class), any(Pageable.class)))
                 .thenReturn(List.of(
                         new Booking(item,user2,LocalDateTime.now().minusDays(2),
