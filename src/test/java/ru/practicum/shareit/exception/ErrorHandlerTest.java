@@ -15,13 +15,13 @@ class ErrorHandlerTest {
     }
 
     @Test
-    void handleExceptionForUnsupport() {
+    void handleExceptionForUnsupportTest() {
         ErrorResponse response = errorHandler.handleExceptionForUnsupport(new ExceptionForUnsupport("ExceptionForUnsupport"));
         assertEquals(response.getError(),"ExceptionForUnsupport");
     }
 
     @Test
-    void handleNotFoundException() {
+    void handleNotFoundExceptionTest() {
         ErrorResponse response = errorHandler.handleNotFoundException(new NotFoundException("NotFoundException"));
         assertEquals(response.getError(),"NotFoundException: NotFoundException");
     }
@@ -33,13 +33,13 @@ class ErrorHandlerTest {
     }
 
     @Test
-    void handleForbiddenException() {
+    void handleForbiddenExceptionTest() {
         ErrorResponse response = errorHandler.handleForbiddenException(new ForbiddenException("ForbiddenException"));
         assertEquals(response.getError(),"ForbiddenException: ForbiddenException");
     }
 
     @Test
-    void handleThrowable() {
+    void handleThrowableTest() {
         ErrorResponse response = errorHandler.handleThrowable(new Throwable("Throwable"));
         assertEquals(response.getError(),"Throwable");
     }

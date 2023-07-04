@@ -29,7 +29,7 @@ class BookingRepositoryTest {
 
     @Test
     @DirtiesContext
-    void findAllByBookerIdOrderByStartDesc() {
+    void findAllByBookerIdOrderByStartDescTest() {
         User user = new User(1L,"user1","user1@user.ru");
         userRepository.save(user);
 
@@ -62,7 +62,7 @@ class BookingRepositoryTest {
 
     @Test
     @DirtiesContext
-    void findAllByItemIdAndStatus() {
+    void findAllByItemIdAndStatusTest() {
         User user = new User(1L,"user1","user1@user.ru");
         userRepository.save(user);
 
@@ -99,7 +99,7 @@ class BookingRepositoryTest {
 
     @Test
     @DirtiesContext
-    void findAllByBookerIdAndStartBeforeAndEndAfter() {
+    void findAllByBookerIdAndStartBeforeAndEndAfterTest() {
         User user = new User(1L, "user1", "user1@user.ru");
         userRepository.save(user);
 
@@ -143,7 +143,7 @@ class BookingRepositoryTest {
 
     @Test
     @DirtiesContext
-    public void testFindBookingOwnerAllAndCurrentAndFutureAndPast() {
+    public void testFindBookingOwnerAllAndCurrentAndFutureAndPastTest() {
         User user = new User(1L,"user1","user1@user.ru");
         userRepository.save(user);
 

@@ -4,6 +4,7 @@ import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.practicum.shareit.user.model.User;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +15,8 @@ class UserRepositoryTest {
     private final EasyRandom generator = new EasyRandom();
 
     @Test
-    void findByIdNot() {
+    @DirtiesContext
+    void findByIdNotTest() {
         User user1 = generator.nextObject(User.class);
         User user2 = generator.nextObject(User.class);
         User user3 = generator.nextObject(User.class);

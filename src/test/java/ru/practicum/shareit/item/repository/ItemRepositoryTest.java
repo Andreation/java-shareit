@@ -24,21 +24,21 @@ class ItemRepositoryTest {
 
     @Test
     @DirtiesContext
-    void findAllByOwnerId() {
+    void findAllByOwnerIdTest() {
         userRepository.save(new User(1L,"user1","user1@mail.ru"));
         userRepository.save(new User(2L,"user2","user2@mail.ru"));
 
         Item item1 = new Item(1L,"item1","itemDecription1",true);
         item1.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
-        itemRepository.save(item1);
+        item1 = itemRepository.save(item1);
 
         Item item2 = new Item(2L,"item2","itemDecription2",true);
         item2.setOwner(userRepository.findById(2L).orElseThrow(() -> new NotFoundException("no found")));
-        itemRepository.save(item2);
+        item2 = itemRepository.save(item2);
 
         Item item3 = new Item(3L,"item3","itemDecription3",true);
         item3.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
-        itemRepository.save(item3);
+        item3 = itemRepository.save(item3);
 
         List<Item> itemList = itemRepository.findAllByOwnerId(1L);
         assertEquals(itemList.size(),2);
@@ -56,7 +56,7 @@ class ItemRepositoryTest {
 
     @Test
     @DirtiesContext
-    void searchAvailableItems() {
+    void searchAvailableItemsTest() {
         userRepository.save(new User(1L,"user1","user1@mail.ru"));
 
         Item item1 = new Item(1L,"item1","description",true);
@@ -65,11 +65,11 @@ class ItemRepositoryTest {
 
         Item item2 = new Item(2L,"item2","DESCRIPTION",true);
         item2.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
-        itemRepository.save(item2);
+        item2 = itemRepository.save(item2);
 
         Item item3 = new Item(3L,"item3","DESCRIPTION",false);
         item3.setOwner(userRepository.findById(1L).orElseThrow(() -> new NotFoundException("no found")));
-        itemRepository.save(item3);
+        item3 = itemRepository.save(item3);
 
         List<Item> itemList1 = itemRepository.searchAvailableItems("item2", Pageable.unpaged());
         assertEquals(itemList1.size(),1);
