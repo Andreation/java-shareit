@@ -79,6 +79,7 @@
 			</resource>
 		</resources>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -95,12 +96,11 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.0.0-M5</version>
 					<configuration>
-						<systemPropertyVariables>
-							<spring.profiles.active>test</spring.profiles.active>
-						</systemPropertyVariables>
+						<!-- Activate the use of TCP to transmit events to the plugin -->
+						<forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory"/>
 					</configuration>
 				</plugin>
 				<plugin>

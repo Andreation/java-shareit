@@ -6,6 +6,7 @@ import ru.practicum.shareit.user.model.UserDto;
 
 import java.time.LocalDateTime;
 
+@Generated
 @Getter
 @Setter
 @Builder
