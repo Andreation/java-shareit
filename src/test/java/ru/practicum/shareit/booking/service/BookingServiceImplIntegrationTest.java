@@ -47,10 +47,9 @@ class BookingServiceImplIntegrationTest {
                         .available(true)
                         .build());
 
-
         OutputBookingDto booking = bookingService.create(InputBookingDto.builder()
                 .start(LocalDateTime.of(2023,10,20, 1, 1).plusDays(1))
-                .end( LocalDateTime.of(2023,10,20, 1, 1).plusDays(2))
+                .end(LocalDateTime.of(2023,10,20, 1, 1).plusDays(2))
                 .itemId(item1.getId())
                 .build(), user2.getId());
 
