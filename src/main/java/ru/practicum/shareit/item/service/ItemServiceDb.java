@@ -153,6 +153,7 @@ public class ItemServiceDb implements ItemService {
         comment.setCreated(LocalDateTime.now());
         return CommentMapper.toDto(commentRepository.save(comment));
     }
+
     @Generated
     private void setBookings(ItemDto itemDto, List<Booking> bookings) {
         itemDto.setNextBooking(bookings.stream()
