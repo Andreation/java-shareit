@@ -9,7 +9,9 @@ import java.util.List;
 
 public class ItemRequestMapper {
     public static ItemRequest fromDto(ItemRequestDto itemRequestDto, User user) {
-        return new ItemRequest(itemRequestDto.getDescription(),user, LocalDateTime.now());
+        ItemRequest itemRequest = new ItemRequest(itemRequestDto.getDescription(),user, LocalDateTime.now());
+        itemRequest.setId(itemRequestDto.getId());
+        return itemRequest;
     }
 
     public static ItemRequestDto toDto(ItemRequest itemRequest) {
