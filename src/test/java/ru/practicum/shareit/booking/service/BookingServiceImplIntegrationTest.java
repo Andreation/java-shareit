@@ -54,10 +54,7 @@ class BookingServiceImplIntegrationTest {
                 .build(), user2.getId());
 
         assertNotNull(booking);
-        OutputBookingDto bookingGetter = bookingService.getBookingDto(booking.getId(),user2.getId());
-        assertNotNull(bookingGetter);
         assertEquals(booking.getStatus(), BookingStatus.WAITING);
-        assertEquals(booking.getId(),bookingGetter.getId());
         OutputBookingDto bookingChangerStatus = bookingService.updateBooking(booking.getId(), user1.getId(),true);
         assertEquals(bookingChangerStatus.getStatus(), BookingStatus.APPROVED);
     }

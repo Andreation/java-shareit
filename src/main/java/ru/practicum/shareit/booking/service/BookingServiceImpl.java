@@ -73,8 +73,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public OutputBookingDto getBookingDto(Long bookingId, Long userId) {
-        Booking booking = getBooking(bookingId, userId);
-        return BookingMapper.toOutputBookingDto(booking);
+        return BookingMapper.toOutputBookingDto(getBooking(bookingId, userId));
     }
 
     @Transactional(readOnly = true)
