@@ -15,6 +15,7 @@ import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.model.*;
 import ru.practicum.shareit.item.repository.CommentRepository;
 import ru.practicum.shareit.item.repository.ItemRepository;
+import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.request.service.ItemRequestServiceInDb;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
@@ -150,6 +151,38 @@ class ItemServiceDbTest {
 
         assertThrows(NullPointerException.class, () -> itemService.addComment(userId,itemId,comment));
 
-        verify(userService,times(2)).getUser(anyLong());
+        assertThrows(NullPointerException.class, () -> itemService.addComment(2L, 3L, new CommentDto()));
+        verify(userService,times(3)).getUser(anyLong());
+    }
+
+    @Test
+    public void getAllItemUsersTest() {
+        User user1 = new User(1L,"user1","user1@mail.ru");
+        User user2 = new User(2L,"user2","user2@mail.ru");
+
+        ItemRequest request = new ItemRequest("need item",user1,LocalDateTime.now());
+
+        ItemDtoRequest itemDto = ItemDtoRequest.builder()
+                .id(1L)
+                .name("item")
+                .description("descriptionItem")
+                .available(true)
+                .requestId(1L)
+                .build();
+
+        Item item = ItemMapper.toItem(itemDto);
+        item.setOwner(user1);
+
+        Page<Item> itemSearch = new PageImpl<>(List.of(item),Pageable.unpaged(),1L);
+
+        when(bookingRepository.findAllByOwnerIdAndStatus(anyLong(), any(BookingStatus.class), any(Pageable.class)))
+                .thenReturn(List.of(
+                        new Booking(item,user2,LocalDateTime.now().minusDays(2),
+                                LocalDateTime.now().minusDays(1), BookingStatus.APPROVED),
+                        new Booking(item,user2,LocalDateTime.now().plusDays(1),
+                                LocalDateTime.now().plusDays(2), BookingStatus.WAITING)
+                ));
+        List<ItemDto> result = itemService.getAllUserItems(user1.getId(),null,null);
+        assertEquals(result.size(),0);
     }
 }
