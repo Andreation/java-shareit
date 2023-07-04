@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class ItemRequestServiceDbIntegrationTest {
+class ItemRequestServiceInDbIntegrationTest {
 
     @Autowired
     ItemRequestService itemRequestService;
