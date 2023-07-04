@@ -16,6 +16,8 @@ class StateTest {
         state = State.getState(str);
         assertEquals(State.CURRENT, state);
         assertThrows(ExceptionForUnsupport.class, () -> State.getState("asd"));
+        assertEquals(State.ALL, State.getState(null));
+        assertEquals(State.ALL, State.getState(""));
 
     }
 }

@@ -50,4 +50,6 @@ class ItemServiceDbIntegrationTest {
         List<ItemDto> items = itemService.getAllUserItems(user.getId(), null, null);
         assertTrue(items.isEmpty());
     }
+
+
 }
