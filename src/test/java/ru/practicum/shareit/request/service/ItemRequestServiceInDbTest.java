@@ -29,7 +29,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-class ItemRequestServiceDbTest {
+class ItemRequestServiceInDbTest {
 
     private ItemRequestServiceInDb itemRequestService;
 
