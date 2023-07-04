@@ -3,6 +3,7 @@ package ru.practicum.shareit.request.model;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Test;
 import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.model.UserMapper;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ class ItemRequestMapperTest {
     void toItemRequestDtoList() {
         ItemRequest itemRequest1 = generator.nextObject(ItemRequest.class);
         ItemRequest itemRequest2 = generator.nextObject(ItemRequest.class);
+        UserMapper userMapper = new UserMapper();
+        ItemRequestMapper itemRequestMapper = new ItemRequestMapper();
         List<ItemRequest> itemRequests = List.of(itemRequest1, itemRequest2);
         List<ItemRequestDto> itemRequestDtos = ItemRequestMapper.toDtoList(itemRequests);
         assertEquals(itemRequest1.getItems().size(), itemRequestDtos.get(0).getItems().size());

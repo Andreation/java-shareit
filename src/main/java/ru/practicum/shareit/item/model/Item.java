@@ -6,7 +6,6 @@ import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
 
-@Generated
 @Entity
 @Setter
 @Getter

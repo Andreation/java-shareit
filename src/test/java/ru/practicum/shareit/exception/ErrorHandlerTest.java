@@ -43,4 +43,6 @@ class ErrorHandlerTest {
         ErrorResponse response = errorHandler.handleThrowable(new Throwable("Throwable"));
         assertEquals(response.getError(),"Throwable");
     }
+
+
 }

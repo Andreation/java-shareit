@@ -1,6 +1,7 @@
 package ru.practicum.shareit.booking.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import ru.practicum.shareit.user.service.UserService;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
@@ -79,6 +81,7 @@ public class BookingServiceImpl implements BookingService {
     @Transactional(readOnly = true)
     @Override
     public List<OutputBookingDto> getBookingBooker(State state, Long bookerId, Long from, Long size) {
+        log.trace("start getBookingBooker..");
         userService.getUser(bookerId);
         Pageable pageable = Pagination.setPageable(from,size);
         List<Booking> bookings;
@@ -106,6 +109,7 @@ public class BookingServiceImpl implements BookingService {
             default:
                 bookings = bookingRepository.findAllByBookerIdOrderByStartDesc(bookerId, pageable);
         }
+        log.trace("getBookingBooker success");
         return BookingMapper.toOutputsBookingDtoList(bookings);
     }
 
