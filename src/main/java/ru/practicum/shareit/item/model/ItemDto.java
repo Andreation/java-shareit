@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +26,6 @@ public class ItemDto {
     private String description;
     @NotNull
     private Boolean available;
-    @JsonIgnore
     private User owner;
     private BookingDto lastBooking;
     private BookingDto nextBooking;

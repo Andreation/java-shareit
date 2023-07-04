@@ -15,7 +15,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserServiceDbTest {
+class UserServiceDbIntegrationTest {
 
     @Autowired
     UserService userService;
