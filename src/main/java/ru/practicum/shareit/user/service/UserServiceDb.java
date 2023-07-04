@@ -29,6 +29,7 @@ public class UserServiceDb implements UserService {
     @Transactional
     public UserDto update(long id, Map<String, String> updates) {
         log.trace("update user..");
+
         User user = getUser(id);
         if (updates.containsKey("name")) {
             String name = updates.get("name");
