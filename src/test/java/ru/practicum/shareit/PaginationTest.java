@@ -13,17 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class PaginationTest {
 
     @Test
-    public void exceptionTest() {
+    public void setPageableTest() {
         assertThrows(ValidationException.class, () -> Pagination.setPageable(-10L,0L));
         assertThrows(ValidationException.class, () -> Pagination.setPageable(0L,-10L));
         assertThrows(ValidationException.class, () -> Pagination.setPageable(-10L,-10L));
         assertThrows(ValidationException.class, () -> Pagination.setPageable(0L,0L));
         assertThrows(ValidationException.class, () -> Pagination.setPageable(-10L,5L));
         assertThrows(ValidationException.class, () -> Pagination.setPageable(5L,-10L));
-    }
 
-    @Test
-    public void pageableTest() {
         Pageable pageable1 = Pagination.setPageable(1L,1L);
         assertEquals(pageable1.getPageNumber(),1);
         assertEquals(pageable1.getPageSize(),1);

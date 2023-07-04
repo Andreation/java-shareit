@@ -45,6 +45,7 @@ class UserServiceDbTest {
         when(userRepository.save(any(User.class)))
                 .thenReturn(UserMapper.fromUser(userDto));
         User user = userService.getUser(userDto.getId());
+        userService.getUserDto(1L);
         userRepository.save(user);
         assertEquals(user.getId(),userDto.getId());
         assertEquals(user.getName(),userDto.getName());
@@ -55,7 +56,7 @@ class UserServiceDbTest {
         assertThrows(NotFoundException.class, () -> userService.getUser(2L));
 
         verify(userRepository,times(1)).save(Mockito.any(User.class));
-        verify(userRepository,times(4)).findById(Mockito.anyLong());
+        verify(userRepository,times(5)).findById(Mockito.anyLong());
     }
 
     @Test

@@ -7,6 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 class UserMapperTest {
     private final EasyRandom generator = new EasyRandom();
 

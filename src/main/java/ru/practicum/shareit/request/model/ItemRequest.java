@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Generated
 @Getter
 @Setter
 @AllArgsConstructor
