@@ -21,10 +21,7 @@ import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -132,6 +129,14 @@ class ItemServiceDbTest {
         when(itemRepository.findById(1L))
                 .thenReturn(Optional.of(item));
         itemService.delete(1L, 1L);
+
+        Map<String, String>  updates = new HashMap<>();
+        updates.put("name", "updateName");
+        updates.put("available", "false");
+        updates.put("description", "updateDesk");
+
+        ItemDto item1 = itemService.update(1L, 1L, updates);
+        assertNotNull(item1);
     }
 
     @Test
