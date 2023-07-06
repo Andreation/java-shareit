@@ -4,8 +4,8 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Generated
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,8 +14,10 @@ import javax.validation.constraints.NotNull;
 public class ItemDtoRequest {
     private Long id;
     @NotBlank
+    @Size(max = 50)
     private String name;
     @NotBlank
+    @Size(max = 200)
     private String description;
     @NotNull
     private Boolean available;

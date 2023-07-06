@@ -1,8 +1,8 @@
 package ru.practicum.shareit.booking.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +26,8 @@ import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceImplTest {
-    private BookingService bookingService;
+    @InjectMocks
+    private BookingServiceImpl bookingService;
 
     @Mock
     private UserService userService;
@@ -38,10 +39,6 @@ class BookingServiceImplTest {
     private BookingRepository bookingRepository;
     private final LocalDateTime date = LocalDateTime.of(2023, 1, 10, 1,1);
 
-    @BeforeEach
-    public void setUp() {
-        bookingService = new BookingServiceImpl(bookingRepository, userService,itemService);
-    }
 
     @Test
     void createGetTest() {

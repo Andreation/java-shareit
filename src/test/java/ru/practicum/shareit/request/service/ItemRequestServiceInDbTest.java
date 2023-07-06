@@ -1,9 +1,9 @@
 package ru.practicum.shareit.request.service;
 
 import org.jeasy.random.EasyRandom;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +31,7 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class ItemRequestServiceInDbTest {
 
+    @InjectMocks
     private ItemRequestServiceInDb itemRequestService;
 
     @Mock
@@ -44,10 +45,6 @@ class ItemRequestServiceInDbTest {
 
     private final EasyRandom generator = new EasyRandom();
 
-    @BeforeEach
-    public void setUp() {
-        itemRequestService = new ItemRequestServiceInDb(userService,itemRequestRepository,userRepository);
-    }
 
     @Test
     void newItemRequestAndGetTest() {

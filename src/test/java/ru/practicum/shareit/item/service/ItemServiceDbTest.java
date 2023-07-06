@@ -1,8 +1,8 @@
 package ru.practicum.shareit.item.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ItemServiceDbTest {
-    private ItemService itemService;
+    @InjectMocks
+    private ItemServiceDb itemService;
 
     @Mock
     ItemRepository itemRepository;
@@ -47,12 +48,6 @@ class ItemServiceDbTest {
 
     @Mock
     ItemRequestServiceInDb itemRequestService;
-
-    @BeforeEach
-    public void setUp() {
-        itemService = new ItemServiceDb(itemRepository, userService,
-                itemRequestService, bookingRepository, commentRepository);
-    }
 
     @Test
     public void createAndGetItemTest() {

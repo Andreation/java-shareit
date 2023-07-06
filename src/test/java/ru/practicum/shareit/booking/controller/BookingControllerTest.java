@@ -58,14 +58,6 @@ class BookingControllerTest {
     }
 
     @Test
-    void getBookingUser() {
-    }
-
-    @Test
-    void getBookingOwner() {
-    }
-
-    @Test
     void create() {
         InputBookingDto bookingIn = InputBookingDto.builder()
                 .start(LocalDateTime.now().plusDays(1))
@@ -81,9 +73,5 @@ class BookingControllerTest {
                     booking.setId(1L);
                     return booking;
                 });
-    }
-
-    @Test
-    void update() {
     }
 }
