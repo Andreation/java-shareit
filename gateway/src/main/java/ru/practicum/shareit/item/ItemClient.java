@@ -49,7 +49,7 @@ public class ItemClient extends BaseClient {
         return get("?from={from}&size={size}", userId, parameters);
     }
 
-    public ResponseEntity<Object> searchItems(String text, int from, int size) {
+    public ResponseEntity<Object> searchItems(Long userId, String text, int from, int size) {
         if (text.isBlank()) {
             return ResponseEntity.ok(List.of());
         }
@@ -58,7 +58,7 @@ public class ItemClient extends BaseClient {
                 "size", size,
                 "text", text
         );
-        return get("/search?text={text}&from={from}&size={size}", null, parameters);
+        return get("/search?text={text}&from={from}&size={size}", userId, parameters);
     }
 
     public ResponseEntity<Object> addComment(Long userId, Long itemId, CommentDto commentDto) {

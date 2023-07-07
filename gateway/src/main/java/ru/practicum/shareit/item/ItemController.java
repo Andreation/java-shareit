@@ -52,10 +52,11 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Object> searchItems(@RequestParam String text,
+    public ResponseEntity<Object> search(@RequestHeader(value = line, required = false) long userId,
+                                              @RequestParam String text,
                                               @RequestParam(required = false) @PositiveOrZero int from,
                                               @RequestParam(required = false) @PositiveOrZero int size) {
-        return itemClient.searchItems(text, from, size);
+        return itemClient.searchItems(userId, text, from, size);
     }
 
     @PostMapping("{itemId}/comment")
