@@ -10,6 +10,7 @@ import ru.practicum.shareit.booking.dto.State;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Controller
 @RequestMapping(path = "/bookings")
@@ -41,8 +42,8 @@ public class BookingController {
     @GetMapping
     public ResponseEntity<Object> getUserBookings(@RequestParam(defaultValue = "ALL") String state,
                                                   @RequestHeader(line) @Positive Long userId,
-                                                  @RequestParam(required = false) int from,
-                                                  @RequestParam(required = false) int size) {
+                                                  @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                                  @RequestParam(defaultValue = "10") @PositiveOrZero int size) {
         State bookingState = State.getState(state);
         log.info("Get user bookings with state {}, userId={}, from={}, size={}", bookingState, userId, from, size);
         return bookingClient.getUserBookings(bookingState, userId, from, size);
@@ -51,8 +52,8 @@ public class BookingController {
     @GetMapping("/owner")
     public ResponseEntity<Object> getUserItemBookings(@RequestParam(defaultValue = "ALL") String state,
                                                       @RequestHeader(line) Long userId,
-                                                      @RequestParam(required = false)  int from,
-                                                      @RequestParam(required = false)  int size) {
+                                                      @RequestParam(defaultValue = "0")  @PositiveOrZero int from,
+                                                      @RequestParam(defaultValue = "10") @PositiveOrZero int size) {
         State bookingState = State.getState(state);
         log.info("Get user item bookings with state {}, userId={}, from={}, size={}", bookingState, userId, from, size);
         return bookingClient.getUserItemBookings(bookingState, userId, from, size);
