@@ -105,7 +105,7 @@ public class ItemServiceDb implements ItemService {
     @Transactional(readOnly = true)
     @Override
     public List<ItemDto> getAllUserItems(Long userId, Long from, Long size) {
-        List<Item> items = itemRepository.findAllByOwnerId(userId);
+        List<Item> items = itemRepository.findAllByOwnerIdOrderById(userId);
         Pageable pageable = Pagination.setPageable(from,size);
         List<Booking> bookings = bookingRepository.findAllByOwnerIdAndStatus(userId, BookingStatus.APPROVED, pageable);
         List<Comment> comments = commentRepository.findAllByItemIdIn(items.stream()
