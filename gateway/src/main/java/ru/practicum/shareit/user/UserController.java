@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 @RequestMapping(path = "/users")
@@ -33,8 +34,8 @@ public class UserController {
     }
 
     @PatchMapping("{userId}")
-    public ResponseEntity<Object> update(@RequestBody UserDto userDto, @PathVariable long userId) {
-        return userClient.update(userDto, userId);
+    public ResponseEntity<Object> update(@RequestBody Map<String, String> updates, @PathVariable long userId) {
+        return userClient.update(updates, userId);
     }
 
     @DeleteMapping("{userId}")

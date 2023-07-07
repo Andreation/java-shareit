@@ -10,6 +10,8 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.user.dto.UserDto;
 
+import java.util.Map;
+
 @Service
 public class UserClient extends BaseClient {
 
@@ -37,8 +39,8 @@ public class UserClient extends BaseClient {
         return post("", userDto);
     }
 
-    public ResponseEntity<Object> update(UserDto userDto, long userId) {
-        return patch("/" + userId, userDto);
+    public ResponseEntity<Object> update(Map<String, String> updates, long userId) {
+        return patch("/" + userId, updates);
     }
 
     public ResponseEntity<Object> delete(long userId) {
