@@ -12,10 +12,10 @@ import javax.validation.constraints.Size;
 public class UserDto {
     private Long id;
     @Size(max = 50)
-    @NotBlank()
+    @NotBlank
     private String name;
     @Size(max = 100)
     @Email(message = "email error")
-    @NotBlank()
+    @NotBlank
     private String email;
 }
