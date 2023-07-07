@@ -12,6 +12,7 @@ import ru.practicum.shareit.item.dto.ItemDto;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/items")
@@ -32,9 +33,9 @@ public class ItemController {
 
     @PatchMapping("{itemId}")
     public ResponseEntity<Object> updateItem(@RequestHeader(line) @Positive long userId,
-                                             @RequestBody ItemDto itemDto,
+                                             @RequestBody Map<String, String> updates,
                                              @PathVariable @Positive long itemId) {
-        return itemClient.updateItem(userId, itemDto, itemId);
+        return itemClient.updateItem(userId, updates, itemId);
     }
 
     @GetMapping("{itemId}")
