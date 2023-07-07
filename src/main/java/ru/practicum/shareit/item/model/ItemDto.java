@@ -1,9 +1,6 @@
 package ru.practicum.shareit.item.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import ru.practicum.shareit.booking.model.BookingDto;
 import ru.practicum.shareit.user.model.User;
 
@@ -14,6 +11,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class ItemDto {
     private Long id;
@@ -25,7 +23,6 @@ public class ItemDto {
     private String description;
     @NotNull
     private Boolean available;
-    @JsonIgnore
     private User owner;
     private BookingDto lastBooking;
     private BookingDto nextBooking;

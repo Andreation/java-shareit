@@ -13,6 +13,22 @@ public class ItemMapper {
                 .build();
     }
 
+    public static ItemDtoRequest toItemDtoRequest(Item item) {
+        return ItemDtoRequest.builder()
+                .id(item.getId())
+                .name(item.getName())
+                .description(item.getDescription())
+                .available(item.getAvailable())
+                .requestId(item.getRequest() != null ? item.getRequest().getId() : null)
+                .build();
+    }
+
+    public static List<ItemDtoRequest> toItemDtoRequestList(List<Item> items) {
+        return items.stream()
+                .map(ItemMapper::toItemDtoRequest)
+                .collect(Collectors.toList());
+    }
+
     public static Item toItem(ItemDto item) {
         return Item.builder()
                 .id(item.getId())
@@ -21,6 +37,16 @@ public class ItemMapper {
                 .available(item.getAvailable())
                 .build();
     }
+
+    public static Item toItem(ItemDtoRequest item) {
+        return Item.builder()
+                .id(item.getId())
+                .name(item.getName())
+                .description(item.getDescription())
+                .available(item.getAvailable())
+                .build();
+    }
+
 
     public static List<ItemDto> toItemDtoList(List<Item> items) {
         return items.stream()

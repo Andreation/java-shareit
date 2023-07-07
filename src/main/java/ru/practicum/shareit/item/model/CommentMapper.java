@@ -3,7 +3,7 @@ package ru.practicum.shareit.item.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CommentMapper {
+public class  CommentMapper {
     public static CommentDto toDto(Comment comment) {
         return CommentDto.builder()
                 .id(comment.getId())
