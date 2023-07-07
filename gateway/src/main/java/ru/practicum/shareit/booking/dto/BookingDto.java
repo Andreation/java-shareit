@@ -16,6 +16,5 @@ public class BookingDto {
     private LocalDateTime start;
     @FutureOrPresent(message = "end mustnt be in past")
     private LocalDateTime end;
-    @NotNull
     private Long itemId;
 }
