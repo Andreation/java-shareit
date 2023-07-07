@@ -46,8 +46,8 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<Object> getUserItems(@RequestHeader(line) @Positive long userId,
-                                               @RequestParam(required = false) @PositiveOrZero int from,
-                                               @RequestParam(required = false) @PositiveOrZero int size) {
+                                               @RequestParam(required = false) int from,
+                                               @RequestParam(required = false) int size) {
         return itemClient.getUserItems(userId, from, size);
     }
 
