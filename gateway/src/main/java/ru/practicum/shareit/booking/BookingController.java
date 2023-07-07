@@ -10,7 +10,6 @@ import ru.practicum.shareit.booking.dto.State;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 
 @Controller
 @RequestMapping(path = "/bookings")
