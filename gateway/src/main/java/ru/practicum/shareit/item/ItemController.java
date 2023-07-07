@@ -19,17 +19,19 @@ import javax.validation.constraints.PositiveOrZero;
 @Slf4j
 public class ItemController {
 
+    private static final String line = "X-Sharer-User-Id";
+
     private final ItemClient itemClient;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> addItem(@RequestHeader("X-Sharer-User-Id") @Positive long userId,
+    public ResponseEntity<Object> addItem(@RequestHeader(line) @Positive long userId,
                                           @Valid @RequestBody ItemDto itemDto) {
         return itemClient.addItem(userId, itemDto);
     }
 
     @PatchMapping("{itemId}")
-    public ResponseEntity<Object> updateItem(@RequestHeader("X-Sharer-User-Id") @Positive long userId,
+    public ResponseEntity<Object> updateItem(@RequestHeader(line) @Positive long userId,
                                              @RequestBody ItemDto itemDto,
                                              @PathVariable @Positive long itemId) {
         return itemClient.updateItem(userId, itemDto, itemId);
@@ -37,27 +39,27 @@ public class ItemController {
 
     @GetMapping("{itemId}")
     public ResponseEntity<Object> getItem(@PathVariable @Positive long itemId,
-                                          @RequestHeader("X-Sharer-User-Id") @Positive long userId) {
+                                          @RequestHeader(line) @Positive long userId) {
         return itemClient.getItem(itemId, userId);
     }
 
     @GetMapping
-    public ResponseEntity<Object> getUserItems(@RequestHeader("X-Sharer-User-Id") @Positive long userId,
+    public ResponseEntity<Object> getUserItems(@RequestHeader(line) @Positive long userId,
                                                @RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                               @RequestParam(defaultValue = "10") @Positive int size) {
+                                               @RequestParam(defaultValue = "10") @PositiveOrZero int size) {
         return itemClient.getUserItems(userId, from, size);
     }
 
     @GetMapping("/search")
     public ResponseEntity<Object> searchItems(@RequestParam String text,
-                                              @RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                              @RequestParam(defaultValue = "10") @Positive int size) {
+                                              @RequestParam(required = false) @PositiveOrZero int from,
+                                              @RequestParam(required = false) @PositiveOrZero int size) {
         return itemClient.searchItems(text, from, size);
     }
 
     @PostMapping("{itemId}/comment")
-    public ResponseEntity<Object> addComment(@RequestHeader("X-Sharer-User-Id") @Positive Long userId,
-                                             @PathVariable("itemId") @Positive Long itemId,
+    public ResponseEntity<Object> addComment(@RequestHeader(line) @Positive Long userId,
+                                             @PathVariable("itemId") @PositiveOrZero Long itemId,
                                              @Valid @RequestBody CommentDto commentDto) {
         return itemClient.addComment(userId, itemId, commentDto);
     }

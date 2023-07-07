@@ -18,29 +18,30 @@ import javax.validation.constraints.PositiveOrZero;
 @Slf4j
 public class BookingController {
 
+    private static final String line = "X-Sharer-User-Id";
     private final BookingClient bookingClient;
 
     @PostMapping
     public ResponseEntity<Object> createBooking(@Valid @RequestBody BookingDto bookingDto,
-                                                @RequestHeader("X-Sharer-User-Id") @Positive Long userId) {
+                                                @RequestHeader(line) @Positive Long userId) {
         return bookingClient.createBooking(bookingDto, userId);
     }
 
     @PatchMapping("{bookingId}")
     public ResponseEntity<Object> considerBooking(@RequestParam Boolean approved, @PathVariable Long bookingId,
-                                                  @RequestHeader("X-Sharer-User-Id") @Positive Long userId) {
+                                                  @RequestHeader(line) @Positive Long userId) {
         return bookingClient.considerBooking(approved, bookingId, userId);
     }
 
     @GetMapping("{bookingId}")
     public ResponseEntity<Object> getBooking(@PathVariable @Positive Long bookingId,
-                                             @RequestHeader("X-Sharer-User-Id") @Positive Long userId) {
+                                             @RequestHeader(line) @Positive Long userId) {
         return bookingClient.getBooking(bookingId, userId);
     }
 
     @GetMapping
     public ResponseEntity<Object> getUserBookings(@RequestParam(defaultValue = "ALL") String state,
-                                                  @RequestHeader("X-Sharer-User-Id") @Positive Long userId,
+                                                  @RequestHeader(line) @Positive Long userId,
                                                   @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                                   @RequestParam(defaultValue = "10") @Positive int size) {
         State bookingState = State.getState(state);
@@ -50,7 +51,7 @@ public class BookingController {
 
     @GetMapping("/owner")
     public ResponseEntity<Object> getUserItemBookings(@RequestParam(defaultValue = "ALL") String state,
-                                                      @RequestHeader("X-Sharer-User-Id") Long userId,
+                                                      @RequestHeader(line) Long userId,
                                                       @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                                       @RequestParam(defaultValue = "10") @Positive int size) {
         State bookingState = State.getState(state);
