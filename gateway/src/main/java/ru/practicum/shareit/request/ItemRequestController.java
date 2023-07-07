@@ -1,6 +1,7 @@
 package ru.practicum.shareit.request;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,8 @@ public class ItemRequestController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Object> getAllItemRequestByPage(@RequestParam(required = false) @PositiveOrZero int from,
-                                                          @RequestParam(required = false) @Positive int size,
+    public ResponseEntity<Object> getAllItemRequestByPage(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                                          @RequestParam(defaultValue = "10") @Positive int size,
                                                           @RequestHeader(line) @Positive Long userId) {
         return requestClient.getAllItemRequestByPage(from, size, userId);
     }
