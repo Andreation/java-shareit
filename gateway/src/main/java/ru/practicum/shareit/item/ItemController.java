@@ -46,16 +46,16 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<Object> getUserItems(@RequestHeader(line) @Positive long userId,
-                                               @RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                               @RequestParam(defaultValue = "10") @PositiveOrZero int size) {
+                                               @RequestParam(required = false) @PositiveOrZero int from,
+                                               @RequestParam(required = false) @PositiveOrZero int size) {
         return itemClient.getUserItems(userId, from, size);
     }
 
     @GetMapping("/search")
     public ResponseEntity<Object> search(@RequestHeader(value = line, required = false) long userId,
                                               @RequestParam String text,
-                                              @RequestParam(required = false) @PositiveOrZero int from,
-                                              @RequestParam(required = false) @PositiveOrZero int size) {
+                                              @RequestParam(required = false) int from,
+                                              @RequestParam(required = false) int size) {
         return itemClient.searchItems(userId, text, from, size);
     }
 
